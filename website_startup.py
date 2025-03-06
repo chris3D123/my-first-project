@@ -4,9 +4,8 @@ from Crypto.Random import get_random_bytes
 from Crypto.Protocol.KDF import PBKDF2
 import base64
 
-# File to store user information
 file_name = 'user_info.json'
-# Encryption key (For example purposes, use a more secure key management in production)
+
 password = 'my_secure_password'
 salt = b'my_salt'
 
@@ -21,7 +20,6 @@ def pad(data):
 def unpad(data):
     return data[:-ord(data[len(data)-1:])]
 
-# Function to load user information from file
 def load_user_info():
     try:
         with open(file_name, 'rb') as file:
@@ -36,7 +34,6 @@ def load_user_info():
         print("Error decoding the user information file.")
         return {}
 
-# Function to save user information to file
 def save_user_info(user_info):
     data = json.dumps(user_info).encode()
     iv = get_random_bytes(16)
@@ -45,7 +42,6 @@ def save_user_info(user_info):
     with open(file_name, 'wb') as file:
         file.write(encrypted_data)
 
-# Load existing user information
 user_info = load_user_info()
 
 print("S = sign up L = log in C = change information")
@@ -67,7 +63,7 @@ elif su_OR_li == 'L':
         print("Invalid username or password.")
 
 elif su_OR_li == 'C':
-    su_username = input("Enter your current username: ")  # Ask for the current username to update info
+    su_username = input("Enter your current username: ")  
     if su_username in user_info:
         print("Y = yes N = no")
         password_option = input("Would you like to change your password?: ")
